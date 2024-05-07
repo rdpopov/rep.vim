@@ -13,12 +13,12 @@ if !exists("g:Rep_current_completion")
     let g:Rep_current_completion = "keyword"
 end
 
-au CompleteDonePre * :call s:special_tab_complete()
+au CompleteChanged * :call s:special_tab_complete()
 
 let s:rep_to_feed = { "" : "\<C-n>",
             \ "keyword" : "\<C-x>\<C-n>",
             \ "ctrl_x" : "\<C-n>",
-            \  "scroll" : "\<C-x>\<C-s>",
+            \ "scroll" : "\<C-x>\<C-s>",
             \ "whole_line" : "\<C-x>\<C-l>",
             \ "files" : "\<C-x>\<C-f>",
             \ "tags" : "\<C-x>\<C-]>",
@@ -33,12 +33,12 @@ let s:rep_to_feed = { "" : "\<C-n>",
             \ "eval" : "\<C-n>",
             \ "unknown" : "\<C-n>" }
 
-let g:rep_complete_command = s:rep_to_feed[g:Rep_current_completion]
+let g:Rep_complete_command = get(s:rep_to_feed,g:Rep_current_completion,s:rep_to_feed["keyword"])
 
 function s:special_tab_complete()
     let g:Rep_current_completion = complete_info()['mode'] 
-    let s:rep_complete_command = s:rep_to_feed[g:Rep_current_completion]
+    let g:Rep_complete_command = get(s:rep_to_feed,g:Rep_current_completion,s:rep_to_feed["keyword"])
 endfunction
 
-inoremap <expr> <Plug>RepCompleteNext pumvisible() ? "\<C-n>"  :  g:rep_complete_command
-inoremap <expr> <Plug>RepCompletePrev pumvisible() ? "\<C-p>"  :  g:rep_complete_command
+inoremap <expr> <Plug>RepCompleteNext pumvisible() ? "\<C-n>"  :  g:Rep_complete_command
+inoremap <expr> <Plug>RepCompletePrev pumvisible() ? "\<C-p>"  :  g:Rep_complete_command
