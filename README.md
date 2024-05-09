@@ -1,18 +1,17 @@
 # rep.vim
 
 I have found the base completions modes of vim to be very versatile. However, I
-think the key binds are a little bit bad, although thoughtful. Also, while I've
-been using [nvim-cmp](https://github.com/hrsh7th/nvim-cmp), I find that what i
-need is lsp. The others are situationally useful, and better to do the
-manually. And I only need them in small local 'bursts' - I only need completion
-for a few things in the span of a few lines but I don't want to retrigger it
-manually, and I also know which specific one I need.
+think the key binds are long but make sense. I was using [nvim-cmp](https://github.com/hrsh7th/nvim-cmp), I found that what I 
+need is just the lsp. Or if I don't have one keyword or include completion is enough.  more specific completion I would just trigger it from vim, not from cmp, which makes it kinda pointless as an agregator. 
 
-Autocompletion always pops up automatically for lsp, and that is not a problem.
+I found I only need them in small 'bursts' - I only need to repeat a completion type
+for a few things in the span of a few lines but I want an easier retrigger. Eg: file paths. 
+
+Autocompletion from lsp-type plugins always pops up automatically for lsp, and that is not a problem.
 
 ## How it works
-It listens for when completion is triggered and just before a confirmation
-changes the mode to the current one. And on the next time the command is called,
+It waits for when completion is triggered and
+changes the mode to the triggered one. And on the next time the command is called,
 the same completion is triggered. By default it starts in keyword mode.
 
 If menu is already visible(either lsp pop-up or current completion), it just
